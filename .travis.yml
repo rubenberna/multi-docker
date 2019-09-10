@@ -9,14 +9,14 @@ script:
   - docker run -e CI=true rubenberna/react-test npm run test -- --coverage
 
 after_success:
-  - docker build -t rubenberna/multi-client ./client
   - docker build -t rubenberna/multi-nginx ./nginx
   - docker build -t rubenberna/multi-server ./server
   - docker build -t rubenberna/multi-worker ./worker
+  - docker build -t rubenberna/multi-client ./client
   # Login to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take these images and push them to Docker Hub
-  - docker push rubenberna/multi-client
   - docker push rubenberna/multi-nginx
   - docker push rubenberna/multi-server
   - docker push rubenberna/multi-worker
+  - docker push rubenberna/multi-client
