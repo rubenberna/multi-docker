@@ -20,3 +20,17 @@ after_success:
   - docker push rubenberna/multi-server
   - docker push rubenberna/multi-worker
   - docker push rubenberna/multi-client
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-west-1"
+  app: "multi-container"
+  env: "MultiContainer-env"
+  bucket_name: "elasticbeanstalk-eu-west-1-305799247952"
+  bucket_path: "docker-multi"
+  on:
+    branch: master
+  access_key_id:
+    secure: "$AWS_ACCESS_KEY"
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
